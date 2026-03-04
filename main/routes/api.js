@@ -34,7 +34,6 @@ router.get("/products/count", async (req, res) => {
     else {
         countRes = await get_product_count();
     }
-    console.log(countRes)
     const count = countRes[0];
     res.status(202).json(count);
 })

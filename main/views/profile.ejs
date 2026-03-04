@@ -19,7 +19,7 @@
             <a href="cart">Cart</a>
             <a href="orders">Order History</a>
         </aside>
-        <main>
+        <main id="profile-main">
             <% if (section === "general") { %>
                 <h3>Full Name: <%= user.first_name%> <%= user.last_name %> </h3>
                 <h3>Email: <%= user.email %></h3>
@@ -30,7 +30,7 @@
                     <button>Update Icon</button>
                 </form>
             <% } else if(section === "cart") { %>
-                <h3>Your Cart</h3>
+                <%- include("./partials/profile/cart.ejs", {data}) %>
             <% } else if (section === "orders") { %>
                 <h3>Order History</h3>
             <% } %>

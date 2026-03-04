@@ -22,7 +22,7 @@ export async function authUser(req, res, next){
 }
 
 export function requireAuth(req, res, next){
-    console.log("Auth middleware user:", req.user);
+    // console.log("Auth middleware user:", req.user);
     if (!req.user){
         return res.redirect("/user/login")
     }

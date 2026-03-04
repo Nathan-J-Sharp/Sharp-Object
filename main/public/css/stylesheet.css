@@ -756,6 +756,7 @@ label{
     display: flex;
     flex-direction: column;
     width: 200px;
+    height: min-content;
     background-color: #706C61;
     padding: 10px;
     gap: 15px;
@@ -841,6 +842,27 @@ label{
 #amount{
     border-radius: 3px;
     font-size: 20px;
+}
+
+#profile-main{
+    width: 100%;
+}
+
+#cart-wrapper{
+    background-color: #706C61;
+    width: 100%;
+    color: #eeffdb;
+}
+
+.cart-product{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom: #33312c solid 2px;
+}
+
+.cart-product:last-child{
+    border-bottom: none;
 }
 
 /* nav a {

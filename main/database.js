@@ -103,7 +103,7 @@ export function register_account(user){
 }
 
 export async function get_product_info(name){
-    const [results] = await pool.query(`SELECT name, rating, print_source, cost, CASE WHEN amount = 0 THEN "Out"
+    const [results] = await pool.query(`SELECT product_id, name, rating, print_source, cost, CASE WHEN amount = 0 THEN "Out"
                                    WHEN amount <= 100 THEN CONCAT(amount, " left")
                                    ELSE "High" END AS stock 
                                    FROM product
@@ -127,10 +127,14 @@ export function findByIdAndUpdate (id, updateData){
     return
 }
 
-export function is_current_order(customer_id){
-    const [results] = pool.query(`SELECT COUNT(*) AS is_order FROM \`order\` WHERE customer_id = ${customer_id} AND finish_date is null`)
-    const is_order = results['is_order']
+export async function get_cart_id(customer_id){
+    const [result] = await pool.query(`SELECT order_id FROM \`order\` WHERE customer_id = ${customer_id} ORDER BY order_date DESC LIMIT 1;`)
+    return result[0]['order_id']
+}
 
+export async function is_current_order(customer_id){
+    const [results] = await pool.query(`SELECT COUNT(*) AS is_order FROM \`order\` WHERE customer_id = ${customer_id} AND finish_date is null`)
+    const is_order = results[0]['is_order']
     return is_order
 }
 
@@ -138,11 +142,28 @@ export function create_new_order(customer_id){
     pool.query(`INSERT INTO \`order\` (customer_id, order_date) VALUES (${customer_id}, CURDATE())`)
 }
 
-export function add_to_cart(product_id, amount, customer_id){
-    if (is_current_order(customer_id)){
+export async function add_to_cart(product_id, amount, customer_id){
+    if ((await is_current_order(customer_id) == false)){
         create_new_order(customer_id)
     }
-    const [cart_id] = get_cart_id(customer_id);
-
+    const cart_id = await get_cart_id(customer_id);
     pool.query(`INSERT INTO product_order (product_id, purchase_amount, order_id) VALUES (${product_id}, ${amount}, ${cart_id})`)
+}
+
+export async function get_cart_products(order_id){
+    const [result] = await pool.query(`SELECT name, purchase_amount, ROUND(purchase_amount * cost, 2) AS cost
+                                 FROM product_order po
+                                 JOIN product ON po.product_id = product.product_id
+                                 WHERE order_id = ${order_id};`)
+
+    const products = result
+    return products
+}
+
+export async function get_order_total(order_id){
+    const [result] = await pool.query(`SELECT ROUND(SUM(purchase_amount * cost), 2) AS total_cost
+                                       FROM product_order po
+                                       JOIN product ON po.product_id = product.product_id
+                                       WHERE order_id = ${order_id};`)
+    return result[0]['total_cost']
 }

@@ -1,0 +1,12 @@
+<h3>Your Cart</h3>
+<div id="cart-wrapper">
+    <% data[0].forEach(product =>{ %>
+        <section class="cart-product">
+            <h4><%= product.name %></h4>
+            <p>Amount: <%= product.purchase_amount %></p>
+            <p>$<%= product.cost %></p>
+        </section>
+    <% }) %>
+</div>
+<h4>Total: $<%= data[1] %></h4>
+<button>Finish Order</button>

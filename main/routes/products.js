@@ -9,13 +9,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 router.get('/', async (req, res) =>{
-    console.log(req.query)
     const page = Number(req.query.page) || 1;
     const k = req.query.k;
     const limit = 10;
     let offset;
     const user = req.user ?? null
-    console.log(k)
 
     offset = (page - 1) * 10;
 
@@ -49,7 +47,6 @@ router.get('/', async (req, res) =>{
     }
     
     const products = await product_data.json()
-    console.log(products)
     products.forEach(product => {
         product.cost = Number(product.cost).toFixed(2);
     });

@@ -4,7 +4,7 @@ import path from "path";
 import bcrypt from "bcrypt";
 import {users} from "../server.js"
 import jwt from "jsonwebtoken"
-import { check_account, get_account, register_account, findByIdAndUpdate } from "../database.js";
+import { check_account, get_account, register_account, findByIdAndUpdate, is_current_order, add_to_cart, get_product_info, get_cart_products, get_cart_id, get_order_total } from "../database.js";
 import { requireAuth, requireNoAuth } from "../auth.js";
 import { uploadProfileImage } from "../my_multer.js";
 
@@ -22,11 +22,16 @@ router.get("/register", requireNoAuth, (req, res) =>{
     res.render(path.join(__dirname, "..", "views", "register.ejs"))
 })
 
-router.get("/profile/:section", requireAuth, (req, res) =>{
+router.get("/profile/:section", requireAuth, async (req, res) =>{
     const section = req.params.section || "general"
     const user = req.user ?? null
-    console.log(user)
-    res.render(path.join(__dirname, "..", "views", "profile.ejs"), {user, section})
+    let data = []
+    if(section === 'cart'){
+        const cart_id = await get_cart_id(user.customer_id)
+        data.push(await get_cart_products(cart_id))
+        data.push(await get_order_total(cart_id))
+    }
+    res.render(path.join(__dirname, "..", "views", "profile.ejs"), {user, section, data})
 })
 
 router.post('/register', requireNoAuth, async (req, res) =>{
@@ -88,10 +93,36 @@ router.post("/profile/photo", requireAuth,
                 profile_image: imagePath
             })
             
-            res.redirect("/user/profile");
+            res.redirect("/user/profile/general");
         } catch(err){
             console.log(err)
             res.status(500).send(err.message)
         }
 })
+
+router.post("/cart/add_product", requireAuth, async (req, res) =>{
+    try{
+        const user = req.user;
+        const product_name = req.body.name;
+        const product = await get_product_info(product_name)
+        const amount = req.body.amount;
+        add_to_cart(product.product_id, amount, user.customer_id)
+        res.redirect("/user/profile/cart")
+    }
+    catch (err){
+        console.log(err)
+        res.status(500).send("Internal Error")
+    }
+})
+
+router.post("/cart/finalize_order", requireAuth, async (req, res) =>{
+    try{
+        const user = req.user;
+        const cart_id = get_cart_id(user.customer_id)
+        finish_order(user.customer_id)
+    } catch(err){
+        res.send("Error")
+    }
+})
+
 export default router;
