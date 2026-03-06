@@ -132,7 +132,10 @@ export async function findByIdAndUpdate (id, updateData){
 }
 
 export async function get_cart_id(customer_id){
-    const [result] = await pool.query(`SELECT order_id FROM \`order\` WHERE customer_id = ${customer_id} ORDER BY order_date DESC LIMIT 1;`)
+    const [result] = await pool.query(`SELECT order_id FROM \`order\` WHERE customer_id = ${customer_id} AND finish_date is NULL ORDER BY order_date DESC LIMIT 1;`)
+    if(result[0] == null){
+        return null
+    }
     return result[0]['order_id']
 }
 
@@ -142,13 +145,13 @@ export async function is_current_order(customer_id){
     return is_order
 }
 
-export function create_new_order(customer_id){
-    pool.query(`INSERT INTO \`order\` (customer_id, order_date) VALUES (${customer_id}, CURDATE())`)
+export async function create_new_order(customer_id){
+    await pool.query(`INSERT INTO \`order\` (customer_id, order_date) VALUES (${customer_id}, CURDATE())`)
 }
 
 export async function add_to_cart(product_id, amount, customer_id){
-    if ((await is_current_order(customer_id) == false)){
-        create_new_order(customer_id)
+    if ((await is_current_order(customer_id) == 0)){
+        await create_new_order(customer_id)
     }
     const cart_id = await get_cart_id(customer_id);
     pool.query(`INSERT INTO product_order (product_id, purchase_amount, order_id) VALUES (${product_id}, ${amount}, ${cart_id})`)
@@ -170,4 +173,8 @@ export async function get_order_total(order_id){
                                        JOIN product ON po.product_id = product.product_id
                                        WHERE order_id = ${order_id};`)
     return result[0]['total_cost']
+}
+
+export function finish_order(order_id){
+    pool.query(`UPDATE \`order\` SET finish_date = CURDATE() WHERE order_id = ${order_id}`)
 }

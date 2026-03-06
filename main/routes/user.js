@@ -4,7 +4,7 @@ import path from "path";
 import bcrypt from "bcrypt";
 import {users} from "../server.js"
 import jwt from "jsonwebtoken"
-import { check_account, get_account, register_account, findByIdAndUpdate, is_current_order, add_to_cart, get_product_info, get_cart_products, get_cart_id, get_order_total } from "../database.js";
+import { check_account, get_account, register_account, findByIdAndUpdate, is_current_order, add_to_cart, get_product_info, get_cart_products, get_cart_id, get_order_total, finish_order } from "../database.js";
 import { requireAuth, requireNoAuth } from "../auth.js";
 import { uploadProfileImage } from "../my_multer.js";
 
@@ -54,8 +54,13 @@ router.get("/profile/:section", requireAuth, async (req, res) =>{
     const error = undefined;
     if(section === 'cart'){
         const cart_id = await get_cart_id(user.customer_id)
-        data.push(await get_cart_products(cart_id))
-        data.push(await get_order_total(cart_id))
+        if(cart_id){
+            data.push(await get_cart_products(cart_id))
+            data.push(await get_order_total(cart_id))
+        } else{
+            data.push(null)
+            data.push(0.00)
+        }
     }
     res.render(path.join(__dirname, "..", "views", "profile.ejs"), {user, section, data, error})
 })
@@ -132,7 +137,7 @@ router.post("/cart/add_product", requireAuth, async (req, res) =>{
         const product_name = req.body.name;
         const product = await get_product_info(product_name)
         const amount = req.body.amount;
-        add_to_cart(product.product_id, amount, user.customer_id)
+        await add_to_cart(product.product_id, amount, user.customer_id)
         res.redirect("/user/profile/cart")
     }
     catch (err){
@@ -144,11 +149,13 @@ router.post("/cart/add_product", requireAuth, async (req, res) =>{
 router.post("/cart/finalize_order", requireAuth, async (req, res) =>{
     try{
         const user = req.user;
-        const cart_id = get_cart_id(user.customer_id)
-        finish_order(user.customer_id)
+        const cart_id = await get_cart_id(user.customer_id)
+        finish_order(cart_id)
+        res.redirect("/user/profile/general")
     } catch(err){
         res.send("Error")
     }
 })
+
 
 export default router;

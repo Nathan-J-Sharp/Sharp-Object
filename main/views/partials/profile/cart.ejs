@@ -1,12 +1,24 @@
 <h3>Your Cart</h3>
 <div id="cart-wrapper">
-    <% data[0].forEach(product =>{ %>
-        <section class="cart-product">
-            <h4><%= product.name %></h4>
-            <p>Amount: <%= product.purchase_amount %></p>
-            <p>$<%= product.cost %></p>
-        </section>
-    <% }) %>
+    <% if(data[0] != null) { %>
+        <% data[0].forEach(product =>{ %>
+            <section class="cart-product">
+                <h4><%= product.name %></h4>
+                <p>Amount: <%= product.purchase_amount %></p>
+                <p>$<%= Number(product.cost).toFixed(2) %></p>
+                <button class="product-menu">...</button>
+                <div class="product-menu-panel hidden">
+                    <form action="">
+                        <input type="hidden" name="product-name" value="<%= product.name %>">
+                    </form>
+                </div>
+            </section>
+        <% }) %>
+    <% } else { %>
+        <h3>Cart Empty</h3>
+    <% } %>
 </div>
-<h4>Total: $<%= data[1] %></h4>
-<button>Finish Order</button>
+<h4>Total: $<%= Number(data[1]).toFixed(2) %></h4>
+<form action="/user/cart/finalize_order" method="post">
+    <button><b>Finish Order</b></button>
+</form>

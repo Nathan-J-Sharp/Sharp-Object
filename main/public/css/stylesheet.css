@@ -862,7 +862,9 @@ label{
 }
 
 .cart-product{
-    display: flex;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 0.5fr;
+    padding-left: 10px;
     align-items: center;
     justify-content: space-around;
     border-bottom: #33312c solid 2px;
@@ -870,6 +872,16 @@ label{
 
 .cart-product:last-child{
     border-bottom: none;
+}
+
+.product-menu{
+    width: 50px;
+    background: none;
+    border: none;
+    color: #ceddbe;
+    font-size: 40px;
+    font-weight: 700;
+    padding-bottom: 17px;
 }
 
 /* nav a {
