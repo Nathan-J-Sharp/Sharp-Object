@@ -18,6 +18,31 @@ router.get("/login", requireNoAuth, (req, res) => {
     res.render(path.join(__dirname, "..", "views", "login.ejs"))
 })
 
+router.post("/update", requireAuth, async (req, res) =>{
+    const first_name = req.body.first_name ?? null
+    const last_name = req.body.last_name ?? null
+    const new_password = req.body.new_password ?? null
+    const current_password = req.body.current_password ?? null
+
+    let data = {first_name: first_name, last_name: last_name}
+
+    if(new_password){
+        if(!current_password){
+            return res.status(400).render(path.join(__dirname, "..", "views", "profile.ejs"), {user: req.user, section: "general", data: [], error: "Must have current password."})
+        }
+        if(!(await bcrypt.compare(current_password, req.user.password))){
+            return res.status(400).render(path.join(__dirname, "..", "views", "profile.ejs"), {user: req.user, section: "general", data: [], error: "Password Incorrect."})
+        }
+        else{
+            const hashed_password = await bcrypt.hash(new_password, 10)
+            data["password"] = hashed_password
+        }
+    }
+
+    await findByIdAndUpdate(req.user.customer_id, data)
+    res.redirect("/user/profile/general")
+})
+
 router.get("/register", requireNoAuth, (req, res) =>{
     res.render(path.join(__dirname, "..", "views", "register.ejs"))
 })
@@ -26,12 +51,13 @@ router.get("/profile/:section", requireAuth, async (req, res) =>{
     const section = req.params.section || "general"
     const user = req.user ?? null
     let data = []
+    const error = undefined;
     if(section === 'cart'){
         const cart_id = await get_cart_id(user.customer_id)
         data.push(await get_cart_products(cart_id))
         data.push(await get_order_total(cart_id))
     }
-    res.render(path.join(__dirname, "..", "views", "profile.ejs"), {user, section, data})
+    res.render(path.join(__dirname, "..", "views", "profile.ejs"), {user, section, data, error})
 })
 
 router.post('/register', requireNoAuth, async (req, res) =>{

@@ -767,6 +767,13 @@ label{
     color: #ceddbe;
 }
 
+#profile-icon{
+    width: 260px;
+    height: 260px;
+    border-radius: 80px;
+    object-fit: cover;
+}
+
 .board{
     position: fixed;
     top: 0;

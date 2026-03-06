@@ -111,20 +111,24 @@ export async function get_product_info(name){
     return results[0]
 }
 
-export function findByIdAndUpdate (id, updateData){
-    let update_statement = `UPDATE customer`;
-
+export async function findByIdAndUpdate (id, updateData){
+    let fields = []
     if (updateData.profile_image){
-        update_statement += ` SET icon_url = '${updateData.profile_image}'`
-    } else{
-        return new error("Not an option to upload - database.js")
+        fields.push(`icon_url = '${updateData.profile_image}'`)
+    }
+    if(updateData.first_name != ''){
+        fields.push(`first_name = '${updateData.first_name}'`)
+    }
+    if(updateData.last_name != ''){
+        fields.push(`last_name = '${updateData.last_name}'`)
+    }
+    if(updateData.password){
+        fields.push(`password = '${updateData.password}'`)
     }
 
-    update_statement += ` WHERE customer_id = ${id}`
-
-    const response = pool.query(update_statement)
-    console.log(`Database.js: ${response}`)
-    return
+    await pool.query(`UPDATE customer
+                    SET ${fields.join(', ')}
+                    WHERE customer_id = ${id}`)
 }
 
 export async function get_cart_id(customer_id){

@@ -1,0 +1,33 @@
+
+<img id="profile-icon" src="<%= user.icon_url %>" alt="icon">
+<form action="/user/profile/photo" method="post" enctype="multipart/form-data">
+    <input type="file" name="profile_image" accept="image/*" required>
+    <button>Update Icon</button>
+</form>
+<h3>Full Name: <%= user.first_name%> <%= user.last_name %> </h3>
+<h3>Email: <%= user.email %></h3>
+<button id="edit_profile_button" type="button">Edit Profile</button>
+<button type="button">Delete Account</button>
+
+<div id="edit-board" class="board hidden">
+    <div class="edit-content">
+        <span id="close_board" style="cursor: default;" class="close">&times;</span>
+        <h2>Edit Profile</h2>
+
+        <form action="/user/update" method="post">
+            <label for="first_name">First Name</label>
+            <input type="text" name="first_name" value="<%= user.first_name %>"> 
+            <label for="last_name">Last Name</label>
+            <input type="text" name="last_name" value="<%= user.last_name %>">
+            <label for="current_password">Current Password</label>
+            <input type="password" name="current_password" autocomplete="current-password">
+            <label for="new_password">New Password</label>
+            <input type="password" name="new_password" autocomplete="new-password">
+            <% if (typeof error !== "undefined") { %>
+                <script>document.querySelector("#edit-board").classList.remove("hidden")</script>
+                <div class="error"><%= error %></div>
+            <% } %> 
+            <button type="submit" style="margin-top: 10px;">Save Changes</button> 
+        </form>
+    </div>
+</div>
