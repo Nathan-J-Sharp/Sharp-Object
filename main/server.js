@@ -41,6 +41,11 @@ app.get("/contact", (req, res) =>{
     res.status(202).render(path.join(__dirname, "views", "contact.ejs"), {user});
 })
 
+app.use((req, res) =>{
+    const user = res.user ?? null
+    res.render(path.join(__dirname, "views", "404.ejs"), {user})
+})
+
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 })
