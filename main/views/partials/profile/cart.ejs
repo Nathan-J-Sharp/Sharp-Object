@@ -1,19 +1,39 @@
-<h3>Your Cart</h3>
+<h2>Your Cart</h2>
+<div id="cart-identifier">
+    <h4>Product Name</h4>
+    <h4>Amount</h4>
+    <h4>Cost</h4>
+</div>
 <div id="cart-wrapper">
     <% if(data[0] != null) { %>
         <% data[0].forEach(product =>{ %>
             <section class="cart-product">
                 <h4><%= product.name %></h4>
-                <p>Amount: <%= product.purchase_amount %></p>
+                <p><%= product.purchase_amount %></p>
                 <p>$<%= Number(product.cost).toFixed(2) %></p>
                 <button class="product-menu">...</button>
                 <div class="product-menu-panel hidden">
                     <form action="">
                         <input type="hidden" name="product-name" value="<%= product.name %>">
+                        <label for="amount">Amount</label>
+                        <input type="number" name="amount" value="<%= product.purchase_amount %>">
+                        <button>Save</button>
+                    </form>
+                    <form action="">
+                        <button>Remove from Cart</button>
                     </form>
                 </div>
             </section>
+
         <% }) %>
+        <script>
+            document.querySelectorAll(".product-menu").forEach(button => {
+                    button.addEventListener('click', function () {
+                        const panel = this.nextElementSibling;
+                        panel.classList.toggle("hidden");
+                });
+            });
+        </script>
     <% } else { %>
         <h3>Cart Empty</h3>
     <% } %>
