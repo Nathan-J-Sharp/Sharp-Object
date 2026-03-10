@@ -16,17 +16,6 @@ const pool = mysql.createPool({
 // const result = await pool.query("SELECT * FROM customer")
 // 
 
-async function insert(){
-    const result = await pool.query()
-}
-
-export async function get_table(table) {
-    const customer_data = await pool.query(`SELECT * FROM ${table}`)
-    const customer_info = customer_data[0]
-
-    return customer_data[0];
-}
-
 export async function get_featured_products(limit){
     const product_data = await pool.query(`SELECT name, ROUND(cost, 2) AS cost,CASE WHEN amount = 0 THEN "Out"
                                            WHEN amount <= 100 THEN CONCAT(amount, " left")
@@ -132,7 +121,7 @@ export async function findByIdAndUpdate (id, updateData){
 }
 
 export async function get_cart_id(customer_id){
-    const [result] = await pool.query(`SELECT order_id FROM \`order\` WHERE customer_id = ${customer_id} AND finish_date is NULL ORDER BY order_date DESC LIMIT 1;`)
+    const [result] = await pool.query(`SELECT order_id FROM \`order\` WHERE customer_id = ${customer_id} AND order_date is NULL ORDER BY order_id DESC LIMIT 1;`)
     if(result[0] == null){
         return null
     }
@@ -140,13 +129,13 @@ export async function get_cart_id(customer_id){
 }
 
 export async function is_current_order(customer_id){
-    const [results] = await pool.query(`SELECT COUNT(*) AS is_order FROM \`order\` WHERE customer_id = ${customer_id} AND finish_date is null`)
+    const [results] = await pool.query(`SELECT COUNT(*) AS is_order FROM \`order\` WHERE customer_id = ${customer_id} AND order_date is null`)
     const is_order = results[0]['is_order']
     return is_order
 }
 
 export async function create_new_order(customer_id){
-    await pool.query(`INSERT INTO \`order\` (customer_id, order_date) VALUES (${customer_id}, CURDATE())`)
+    await pool.query(`INSERT INTO \`order\` (customer_id) VALUES (${customer_id})`)
 }
 
 export async function add_to_cart(product_id, amount, customer_id){
@@ -154,7 +143,7 @@ export async function add_to_cart(product_id, amount, customer_id){
         await create_new_order(customer_id)
     }
     const cart_id = await get_cart_id(customer_id);
-    pool.query(`INSERT INTO product_order (product_id, purchase_amount, order_id) VALUES (${product_id}, ${amount}, ${cart_id})`)
+    await pool.query(`INSERT INTO product_order (product_id, purchase_amount, order_id) VALUES (${product_id}, ${amount}, ${cart_id})`)
 }
 
 export async function get_cart_products(order_id){
@@ -176,5 +165,15 @@ export async function get_order_total(order_id){
 }
 
 export function finish_order(order_id){
-    pool.query(`UPDATE \`order\` SET finish_date = CURDATE() WHERE order_id = ${order_id}`)
+    pool.query(`UPDATE \`order\` SET order_date = CURDATE() WHERE order_id = ${order_id}`)
+}
+
+export async function get_customer_order_history(customer_id){
+    const [results] = await pool.query(`SELECT DATE(order_date) AS date, ROUND(SUM(purchase_amount * cost),2) AS total_cost, SUM(purchase_amount) AS total_items
+                                  FROM \`order\` o
+                                  JOIN product_order po ON o.order_id = po.order_id
+                                  JOIN product p ON po.product_id = p.product_id
+                                  WHERE o.customer_id = ${customer_id}
+                                  GROUP BY o.order_id, order_date;`)
+    return results[0]
 }
