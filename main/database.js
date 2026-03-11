@@ -173,7 +173,8 @@ export async function get_customer_order_history(customer_id){
                                   FROM \`order\` o
                                   JOIN product_order po ON o.order_id = po.order_id
                                   JOIN product p ON po.product_id = p.product_id
-                                  WHERE o.customer_id = ${customer_id}
-                                  GROUP BY o.order_id, order_date;`)
+                                  WHERE o.customer_id = ${customer_id} and order_date is not NULL
+                                  GROUP BY o.order_id, order_date
+                                  ORDER BY order_date DESC, o.order_id DESC;`)
     return results
 }

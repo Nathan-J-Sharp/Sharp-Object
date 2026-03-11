@@ -411,6 +411,7 @@ footer p {
     padding: 20px;
     background-color: #706c61b1;
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
 }
 
@@ -1057,9 +1058,9 @@ nav a:hover {
 
     #hproducts,
     .products{
-        width: 80%;
+        width: 95%;
         flex-direction: row;
-                flex-wrap: wrap;
+        flex-wrap: wrap;
     }
 
     #product_wrapper{
@@ -1076,14 +1077,20 @@ nav a:hover {
 
     .products{
         margin: 0 auto;
-        justify-content: left;
+        margin-top: 12px;
         width: 95%;
         grid-row: 1/2;
         grid-column: 2/3;
+        justify-content: space-around;
     }
 
     .product{
-        max-width: 330px;
+        width: 330px;
+    }
+
+    .product.filter{
+        visibility: none;
+        pointer-events: none;
     }
 
     #page-nav{

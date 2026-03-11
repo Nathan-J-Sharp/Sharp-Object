@@ -34,11 +34,13 @@
                 });
             });
         </script>
+</div>
         <h4>Total: $<%= Number(data[1]).toFixed(2) %></h4>
         <form action="/user/cart/finalize_order" method="post">
             <button><b>Finish Order</b></button>
         </form>
     <% } else { %>
         <h3 style="padding: 20px;">Cart Empty</h3>
-    <% } %>
 </div>
+    <% } %>
+

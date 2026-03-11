@@ -63,6 +63,7 @@ router.get("/profile/:section", requireAuth, async (req, res) =>{
         }
     } else if( section === 'orders'){
         data = await get_customer_order_history(user.customer_id)
+        console.log(data)
     } else if(section != "general") {
         return res.render(path.join(__dirname, "..", "views", "404.ejs"), {user})
     }
