@@ -4,7 +4,7 @@ import path from "path";
 import bcrypt from "bcrypt";
 import {users} from "../server.js"
 import jwt from "jsonwebtoken"
-import { check_account, get_account, register_account, findByIdAndUpdate, is_current_order, add_to_cart, get_product_info, get_cart_products, get_cart_id, get_order_total, finish_order } from "../database.js";
+import { check_account, get_account, register_account, findByIdAndUpdate, is_current_order, add_to_cart, get_product_info, get_cart_products, get_cart_id, get_order_total, finish_order, get_customer_order_history } from "../database.js";
 import { requireAuth, requireNoAuth } from "../auth.js";
 import { uploadProfileImage } from "../my_multer.js";
 
@@ -48,7 +48,7 @@ router.get("/register", requireNoAuth, (req, res) =>{
 })
 
 router.get("/profile/:section", requireAuth, async (req, res) =>{
-    const section = req.params.section || "general"
+    const section = req.params.section ?? "general"
     const user = req.user ?? null
     let data = []
     const error = undefined;
@@ -61,6 +61,10 @@ router.get("/profile/:section", requireAuth, async (req, res) =>{
             data.push(null)
             data.push(0.00)
         }
+    } else if( section === 'orders'){
+        data = await get_customer_order_history(user.customer_id)
+    } else if(section != "general") {
+        return res.render(path.join(__dirname, "..", "views", "404.ejs"), {user})
     }
     res.render(path.join(__dirname, "..", "views", "profile.ejs"), {user, section, data, error})
 })

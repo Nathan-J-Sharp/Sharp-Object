@@ -900,6 +900,30 @@ label{
     box-shadow: 0px 0px 4px black;
 }
 
+#order-wrapper{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.past-order{
+    width: 215px;
+    border-radius: 20px;
+    padding: 5px;
+    background-color: white;
+    box-shadow: 0px 0px 5px black;
+}
+
+.past-order > *{
+    margin: 14px 0;
+    margin-left: 10px;
+}
+
+.past-order h4{
+    font-size: 20px;
+}
+
 /* nav a {
     color: #706C61;
     text-decoration: none;

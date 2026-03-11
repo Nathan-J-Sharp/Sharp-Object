@@ -175,5 +175,5 @@ export async function get_customer_order_history(customer_id){
                                   JOIN product p ON po.product_id = p.product_id
                                   WHERE o.customer_id = ${customer_id}
                                   GROUP BY o.order_id, order_date;`)
-    return results[0]
+    return results
 }

@@ -1,0 +1,15 @@
+<h3>Order History</h3>
+<div id="order-wrapper">
+    <% if (data != []) { %>
+        <% data.forEach(order => { %>
+            <section class="past-order">
+                <h4><%= order.date.toLocaleDateString("en-US") %></h4>
+                <h4>Total Items: <%= order.total_items %></h4>
+                <h4>$ <%= order.total_cost %></h4>
+                <h4>In Progress</h4>
+            </section>
+        <% }) %>
+    <% } else { %>
+        <h2>No history</h2>
+    <% } %> 
+</div>

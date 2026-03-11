@@ -5,7 +5,7 @@
     <h4>Cost</h4>
 </div>
 <div id="cart-wrapper">
-    <% if(data[0] != null) { %>
+    <% if(data[0] != null && data[0] != []) { %>
         <% data[0].forEach(product =>{ %>
             <section class="cart-product">
                 <h4><%= product.name %></h4>
@@ -34,11 +34,11 @@
                 });
             });
         </script>
+        <h4>Total: $<%= Number(data[1]).toFixed(2) %></h4>
+        <form action="/user/cart/finalize_order" method="post">
+            <button><b>Finish Order</b></button>
+        </form>
     <% } else { %>
-        <h3>Cart Empty</h3>
+        <h3 style="padding: 20px;">Cart Empty</h3>
     <% } %>
 </div>
-<h4>Total: $<%= Number(data[1]).toFixed(2) %></h4>
-<form action="/user/cart/finalize_order" method="post">
-    <button><b>Finish Order</b></button>
-</form>
