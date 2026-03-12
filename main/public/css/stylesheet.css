@@ -1058,9 +1058,8 @@ nav a:hover {
 
     #hproducts,
     .products{
-        width: 95%;
-        flex-direction: row;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr));
     }
 
     #product_wrapper{
@@ -1086,6 +1085,7 @@ nav a:hover {
 
     .product{
         width: 330px;
+        margin: 0 auto;
     }
 
     .product.filter{
@@ -1096,6 +1096,10 @@ nav a:hover {
     #page-nav{
         grid-row: 2/3;
         grid-column: 2/3;
+        margin: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
     }
 
     .footer-links{

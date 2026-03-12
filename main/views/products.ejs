@@ -50,11 +50,56 @@
             </div>
             <div id="page-nav">
                 <% if (page > 1) { %>
-                    <a href="/products?page=<%= page - 1 %>"><-</a>
+                    <a href="/products?page=<%= 1 %>&k=<%= k %>"><<-</a>
+                    <a href="/products?page=<%= page - 1 %>&k=<%= k %>"><-</a>
+                <% } %>
+                <% if ( totalPages <= 5){ %>
+                    <% for(i_page = 1; i_page <= totalPages; i_page++) { %>
+                        <% if(i_page == page) { %>
+                            <a href=""><%= page %></a>
+                        <% } else { %>
+                            <a href="/products?page=<%= i_page %>&k=<%= k %>"><%= i_page %></a>
+                        <% } %>
+                    <% } %>
+                <% } else if( page <= 2) { %>
+                    <% if( page == 1) { %>
+                        <a href=""><%= page %></a>
+                        <a href="/products?page=<%= page + 1 %>&k=<%= k %>"><%= page + 1 %></a>
+                        <a href="/products?page=<%= page + 2 %>&k=<%= k %>"><%= page + 2 %></a>
+                        <a href="/products?page=<%= page + 1 %>&k=<%= k %>"><%= page + 3 %></a>
+                        <a href="/products?page=<%= page + 2 %>&k=<%= k %>"><%= page + 4 %></a>
+                    <% } else {%>
+                        <a href="/products?page=<%= page - 1 %>&k=<%= k %>"><%= page - 1 %></a>
+                        <a href=""><%= page %></a>
+                        <a href="/products?page=<%= page + 1 %>&k=<%= k %>"><%= page + 1 %></a>
+                        <a href="/products?page=<%= page + 2 %>&k=<%= k %>"><%= page + 2 %></a>
+                        <a href="/products?page=<%= page + 3 %>&k=<%= k %>"><%= page + 3 %></a>
+                    <% } %>
+                <% } else if( page >= totalPages - 1) {%>
+                    <% if( page == totalPages) { %>
+                        <a href="/products?page=<%= page - 4 %>&k=<%= k %>"><%= page - 4 %></a>
+                        <a href="/products?page=<%= page - 3 %>&k=<%= k %>"><%= page - 3 %></a>
+                        <a href="/products?page=<%= page - 2 %>&k=<%= k %>"><%= page - 2 %></a>
+                        <a href="/products?page=<%= page - 1 %>&k=<%= k %>"><%= page - 1 %></a>
+                        <a href=""><%= page %></a>
+                    <% } else {%>
+                        <a href="/products?page=<%= page - 3 %>&k=<%= k %>"><%= page - 3 %></a>
+                        <a href="/products?page=<%= page - 2 %>&k=<%= k %>"><%= page - 2 %></a>
+                        <a href="/products?page=<%= page - 1 %>&k=<%= k %>"><%= page - 1 %></a>
+                        <a href=""><%= page %></a>
+                        <a href="/products?page=<%= page - 1 %>&k=<%= k %>"><%= page + 1 %></a>
+                    <% } %>
+                <% } else { %>
+                        <a href="/products?page=<%= page - 2 %>&k=<%= k %>"><%= page - 2 %></a>
+                        <a href="/products?page=<%= page - 1 %>&k=<%= k %>"><%= page - 1 %></a>
+                        <a href=""><%= page %></a>
+                        <a href="/products?page=<%= page + 1 %>&k=<%= k %>"><%= page + 1 %></a>
+                        <a href="/products?page=<%= page + 2 %>&k=<%= k %>"><%= page + 2 %></a>
                 <% } %>
 
                 <% if (page < totalPages) { %>
-                    <a href="/products?page=<%= page + 1 %>">-></a>
+                    <a href="/products?page=<%= page + 1 %>&k=<%= k %>">-></a>
+                    <a href="/products?page=<%= totalPages %>&k=<%= k %>">->></a>
                 <% } %>
             </div>
             <img id="custom_order_img" src="images/product_custom_banner.png" alt="custom image background">

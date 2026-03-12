@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 
 router.get('/', async (req, res) =>{
     const page = Number(req.query.page) || 1;
-    const k = req.query.k;
+    const k = req.query.k ?? null;
     const limit = 10;
     let offset;
     const user = req.user ?? null
@@ -30,7 +30,7 @@ router.get('/', async (req, res) =>{
 
     const totalPages = Math.ceil(count / limit);
 
-    if (page > totalPages) {
+    if (page > totalPages && totalPages != 0) {
         return res.redirect(`/products?page=${totalPages}`);
     }
     if (page < 1) {
