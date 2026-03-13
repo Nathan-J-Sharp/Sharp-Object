@@ -7,6 +7,7 @@ import api_router from "./routes/api.js"
 import user_router from "./routes/user.js"
 import {authUser} from "./auth.js"
 import cookieParser from 'cookie-parser';
+import favicon from "serve-favicon";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,6 +16,7 @@ const PORT = 3500;
 
 app.use(cookieParser())
 app.use(authUser)
+app.use(favicon(path.join(__dirname, "public", "images", "Sharp.png")))
 app.use('/products', product_Router);
 app.use('/user', user_router)
 app.use(express.static("public"));

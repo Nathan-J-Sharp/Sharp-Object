@@ -16,6 +16,7 @@
     <div id="profile-page">
         <aside id="profile-bar">
             <a href="/user/profile/general">General</a>
+                <a href="/user/profile/wishlist">Wishlist</a>
             <a href="/user/profile/cart">Cart</a>
             <a href="/user/profile/orders">Order History</a>
         </aside>
@@ -26,6 +27,8 @@
                 <%- include("./partials/profile/cart.ejs") %>
             <% } else if (section === "orders") { %>
                 <%- include("./partials/profile/history.ejs") %>
+            <% } else if (section === "wishlist") { %>
+                <%- include("./partials/profile/wishlist.ejs") %>
             <% } %>
         </main>
     </div>

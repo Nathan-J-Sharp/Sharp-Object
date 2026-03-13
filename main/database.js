@@ -33,17 +33,19 @@ export async function get_products(offset, limit, key = null){
         const likeClauses = tokens.map(() => `name LIKE ?`).join(" OR ");
         const params = tokens.map(t => `%${t}%`);
 
-        data = await pool.query(`SELECT name, cost,CASE WHEN amount = 0 THEN "Out"
+        data = await pool.query(`SELECT name, cost, image_url, CASE WHEN amount = 0 THEN "Out"
                                    WHEN amount <= 100 THEN CONCAT(amount, " left")
                                    ELSE "High" END AS stock 
-                                   FROM product
+                                   FROM product p
+                                   LEFT JOIN product_image pi ON p.product_id = pi.product_id
                                    WHERE ${likeClauses}
                                    ORDER BY rating LIMIT ${limit} OFFSET ${offset}`, params)
     } else {
-    data = await pool.query(`SELECT name, cost,CASE WHEN amount = 0 THEN "Out"
+    data = await pool.query(`SELECT name, cost, image_url, CASE WHEN amount = 0 THEN "Out"
                                    WHEN amount <= 100 THEN CONCAT(amount, " left")
                                    ELSE "High" END AS stock 
-                                   FROM product
+                                   FROM product p
+                                   LEFT JOIN product_image pi ON p.product_id = pi.product_id
                                    ORDER BY rating LIMIT ${limit} OFFSET ${offset}`)
     }
     return data[0];
@@ -92,10 +94,11 @@ export function register_account(user){
 }
 
 export async function get_product_info(name){
-    const [results] = await pool.query(`SELECT product_id, name, rating, print_source, cost, CASE WHEN amount = 0 THEN "Out"
+    const [results] = await pool.query(`SELECT p.product_id, name, rating, print_source, cost, image_url, CASE WHEN amount = 0 THEN "Out"
                                    WHEN amount <= 100 THEN CONCAT(amount, " left")
                                    ELSE "High" END AS stock 
-                                   FROM product
+                                   FROM product p
+                                   LEFT JOIN product_image pi ON p.product_id = pi.product_id
                                    WHERE name = '${name}'`)
     return results[0]
 }

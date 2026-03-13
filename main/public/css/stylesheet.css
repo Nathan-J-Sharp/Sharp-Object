@@ -830,6 +830,12 @@ label{
     box-shadow: #3d3b35 0px 0px 43px;
 }
 
+#wishlist-button{
+    height: 30px;
+    margin: 20px 0;
+        border-radius: 8px;
+}
+
 #product-order{
     margin-top: 35px;
 }
@@ -1062,6 +1068,12 @@ nav a:hover {
         grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr));
     }
 
+    .product img{
+        width: 179px;
+        height: 179px;
+        object-fit: cover;
+    }
+
     #product_wrapper{
         display: grid;
         grid-template-columns: 1fr 3fr;
@@ -1093,14 +1105,80 @@ nav a:hover {
         pointer-events: none;
     }
 
+    #product-collage img{
+        margin-top: auto;
+        margin-bottom: auto;
+        max-width: 594px;
+        width: 90%;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+    }
+
     #page-nav{
+        height: 70px;
+        position: relative;
         grid-row: 2/3;
         grid-column: 2/3;
         margin: 20px;
         display: flex;
         justify-content: center;
-        gap: 10px;
     }
+
+    .page-num{
+        height: min-content;
+        background-color: #edae49;
+        color: #eeffdb;
+        font-size: 30px;
+        padding: 5px 5px;
+        margin: 0;
+        box-shadow: none;
+        transition: 0.2s;
+    }
+
+    .page-num:hover{
+        box-shadow: 0px 1px 5px #706C61;
+        z-index: 1;
+        padding: 5px 10px;
+        font-size: 40px;
+        transition: 0.2s;
+    }
+
+    #arrow-left, #arrow-left-far, #arrow-right, #arrow-right-far{
+        color: black;
+        font-weight: 1000;
+    }
+
+    #arrow-left, #arrow-left-far{
+        margin-right: 10px;
+        transition: 0.2s;
+    }
+
+    #arrow-left:hover, #arrow-left-far:hover{
+        margin-right: 20px;
+        transition: 0.2s;
+    }
+
+    #arrow-right{
+        margin-left: 10px;
+        transition: 0.2s;
+    }
+
+    #arrow-right:hover{
+        margin-left: 20px;
+        transition: 0.2s;
+    }
+
+    #arrow-right-far{
+        margin-left: 10px;
+        transition: 0.2s;
+    }
+
+    #arrow-right-far:hover{
+        margin-left: 20px;
+        transition: 0.2s;
+    }
+
+
 
     .footer-links{
         flex-direction: row;

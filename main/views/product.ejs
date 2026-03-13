@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sharp Objects - <%= product.name %></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" type="image/x-icon" href="images/Sharp.png">
     <link rel="stylesheet" href="/css/stylesheet.css">
     <script src="/main.js" defer></script>
 </head>
@@ -14,8 +13,11 @@
     <main>
     <div id="product-main">
         <div id="product-collage">
-            <img src="/images/NO_Image.png" alt="">
-            <span><</span>
+            <% if (product.image_url == null){ %>
+                <img src="/images/NO_Image.png" alt="">
+            <% } else { %>
+                <img src="<%= product.image_url %>" alt="image">
+            <% } %>
         </div>
         <div id="product-desription">
             <h2><%= product.name %></h2>
@@ -27,6 +29,10 @@
                 <input type="number" name="amount" id="amount" min="1" max="30" value="1">
                 <button>Add to Cart</button>
             </form>
+            <button id="wishlist-button">Add to Wish List</button>
+            <script>
+                const wishlist_button = document.getElementById('wishlist-button')
+            </script>
             <h4>Print Source: <a href="<%= product.print_source %>" target="_blank"><%= product.print_source %></a></h4>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia consequuntur, autem est debitis sequi numquam! Architecto, excepturi ad itaque doloremque deserunt deleniti rem molestiae aliquam amet obcaecati quam ut perferendis.</p>     
         </div>

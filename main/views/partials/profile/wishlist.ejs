@@ -1,0 +1,19 @@
+<h3>Wishlist</h3>
+<div id="wishlist-wrapper">
+        <div class="products">
+        <% data.forEach(product =>{ %>
+        <section class="product">
+            <% if(product.image_url == null) { %>
+                <img src="/images/NO_image.png" alt= "<%= product.name %>">
+            <% } else { %>
+                <img src="<%= product.image_url %>" alt= "<%= product.name %>">
+            <% } %>
+            <a href="/products/<%= product.name%>"><h3><%= product.name %></h3></a>
+            <div class="product_info">
+                <h4><%= product.stock %></h4>
+                <h4>$<%= product.cost %></h4>
+            </div>
+        </section>
+        <% }) %>
+    </div>
+</div>
