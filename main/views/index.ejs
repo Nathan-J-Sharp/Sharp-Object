@@ -19,22 +19,24 @@
                 <h1>Print Now</h1>
                 <h2>Order some of our 3D printed designs.</h2>
                 <div class="button_box">
-                    <a class="buy" href="products" >Buy</a>
+                    <a class="buy" href="products">Buy</a>
                 </div>
             </div>
         </div>
             <main id="home-grid">
-                <div id="hproducts">
-                    <% products.forEach(product =>{ %>
-                        <section class="product">
-                            <img src="images/NO_Image.png" alt= "<%= product.name %>">
-                            <a href="#"><h3><%= product.name %></h3></a>
-                            <div class="product_info">
-                                <h4><%= product.stock %></h4>
-                                <h4>$<%= product.cost %></h4>
-                            </div>
-                        </section>
-                    <% }) %>
+                <div id="hwrapper">
+                    <div class="products">
+                        <% products.forEach(product =>{ %>
+                            <section class="product">
+                                <img src="images/NO_Image.png" alt= "<%= product.name %>">
+                                <a href="#"><h3><%= product.name %></h3></a>
+                                <div class="product_info">
+                                    <h4><%= product.stock %></h4>
+                                    <h4>$<%= product.cost %></h4>
+                                </div>
+                            </section>
+                        <% }) %>
+                    </div>
                     <a id="see_more" href="products">See more &#8677;</a>
                 </div>
                 <div id = 'custom_print_sect'>
