@@ -17,7 +17,8 @@
     </div>
         <main id="product_wrapper">
             <form id="filter_bar" action="/products" method="GET">
-                <div id="search_bar">   
+                <button id="filter_close" type="button"><span class="line"> </span><span class="line"></span></button>
+                <div id="search_bar">       
                     <input id="search" type="text" name="k" placeholder="Search" value="<%= k || '' %>">
                     <button>Search</button>
                 </div> 
@@ -106,14 +107,28 @@
                     <a id="arrow-right-far" href="/products?page=<%= totalPages %>&k=<%= k %>">->></a>
                 <% } %>
             </div>
+            <div class="custom_print">
             <img id="custom_order_img" src="images/product_custom_banner.png" alt="custom image background">
             <div id="custom_msg">
                 <h2>Order Custom Prints</h2>
                 <p>If you want you own design printed, just order it here.</p>
                 <a href="#">Order Now</a>
             </div>
+            </div>
         
         <button id="search_tab_button">🔍</button>
+        <script>
+            const filter_button = document.querySelector("#search_tab_button")
+            const filter_close = document.querySelector("#filter_close")
+            const search = document.querySelector("#filter_bar")
+            filter_button.addEventListener('click', ()=>{
+                search.classList.add('open')
+            });
+
+            filter_close.addEventListener('click', ()=>{
+                search.classList.remove('open')
+            })
+        </script>
 
         </main>
         <%- include("./partials/footer.ejs") %>
