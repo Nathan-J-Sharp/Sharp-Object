@@ -12,11 +12,47 @@
 }
 
 body{
-    width: 100%;
-    background-color: #eeffdb;  
+
+    background: linear-gradient(180deg, #CEDDA1 30%, #46433d 160%);
+    background-attachment: fixed;
+    width: 100%;  
     font-family: 'Roboto Slab', serif;
     max-width: 1600px;
     margin: 0 auto;
+}
+
+#background{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+#background div{
+    position: absolute;
+    transform-origin: 50% 66%;
+}
+
+#background div:nth-child(1) { left: 8%;  top: 12%; rotate: 45deg; }
+#background div:nth-child(2) { left: 25%; top: 45%; rotate: 120deg; }
+#background div:nth-child(3) { left: 55%; top: 18%; rotate: -30deg; }
+#background div:nth-child(4) { left: 42%; top: 72%; rotate: 15deg; }
+#background div:nth-child(5) { left: 88%; top: 65%; rotate: 200deg; }
+#background div:nth-child(6) { left: 12%; top: 78%; rotate: -85deg; }
+#background div:nth-child(7) { left: 68%; top: 82%; rotate: 55deg; }
+#background div:nth-child(8) { left: 82%; top: 10%; rotate: 160deg; }
+#background div:nth-child(9) { left: 5%;  top: 48%; rotate: 10deg; }
+#background div:nth-child(10){ left: 45%; top: 5%;  rotate: 280deg; }
+
+.triangle{
+    width: 0;
+    height: 0;
+
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 86px solid #706C61;
 }
 
 a {
