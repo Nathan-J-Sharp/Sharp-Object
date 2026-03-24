@@ -9,43 +9,42 @@
         <script src = /main.js defer></script>
     </head>
     <body>
-        <div class="contact_background">
-            <%- include("./partials/header.ejs") %>
-                <main id ="contact_page">
-                    <h1>If you have any issues, contact us.</h1>
-                    <section id="contact_message">
-                        <form method="post" enctype="multipart/form-data">
-                            <div class="message_boxes">
-                            <section>
-                                <label class="text_label">Name:</label>
-                                <input class="text_box" type="text" id="user_name" name="user_name">
-                            </section>
-                            <section>
-                                <label class="text_label">Subject:</label>
-                                <input class="text_box" type="text" id="subject" name="user_subject">
-                            </section>
-                            <section>
-                                <label class="text_label">Email:</label>
-                                <input class="text_box"  type="email" id="mail" name="user_email">
-                            </section>
-                            <section>
-                                <label class="text_label">Message:</label>
-                                <textarea class="message_box" id="msg" name="user_message"></textarea>
-                            </section>
-                        </div>
-                            <div class="button">
-                                <button type="submit">Send</button>
-                            </div>
-                        </form>
-                        <img id="side_image" src="images/contact-photo.png" alt="">
-                        <p id="mail_info" >Lorem ipsum dolor sit amet consectetur adipisicing elit. At amet, omnis deleniti maiores eum ab sit, minima, voluptatibus consequatur dolor molestiae quod et magni quis mollitia praesentium natus maxime iste?</p>
-                        <div id="email">
-                            <img src="images/Mail-icon.png" alt="mail icon">
-                            <h4>3dsharpobjects@gmail.com</h4>
-                        </div>
+        <%- include("./partials/background.ejs") %>
+        <%- include("./partials/header.ejs") %>
+        <main id ="contact_page">
+            <h1>If you have any issues, contact us.</h1>
+            <section id="contact_message">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="message_boxes">
+                    <section>
+                        <label class="text_label">Name:</label>
+                        <input class="text_box" type="text" id="user_name" name="user_name">
                     </section>
-                </main>
-                <%- include("./partials/footer.ejs") %>
-        </div>
+                    <section>
+                        <label class="text_label">Subject:</label>
+                        <input class="text_box" type="text" id="subject" name="user_subject">
+                    </section>
+                    <section>
+                        <label class="text_label">Email:</label>
+                        <input class="text_box"  type="email" id="mail" name="user_email">
+                    </section>
+                    <section>
+                        <label class="text_label">Message:</label>
+                        <textarea class="message_box" id="msg" name="user_message"></textarea>
+                    </section>
+                </div>
+                    <div class="button">
+                        <button type="submit">Send</button>
+                    </div>
+                </form>
+                <img id="side_image" src="images/contact-photo.png" alt="">
+                <p id="mail_info" >Lorem ipsum dolor sit amet consectetur adipisicing elit. At amet, omnis deleniti maiores eum ab sit, minima, voluptatibus consequatur dolor molestiae quod et magni quis mollitia praesentium natus maxime iste?</p>
+                <div id="email">
+                    <img src="images/Mail-icon.png" alt="mail icon">
+                    <h4>3dsharpobjects@gmail.com</h4>
+                </div>
+            </section>
+        </main>
+        <%- include("./partials/footer.ejs") %>
     </body>
 </html>
