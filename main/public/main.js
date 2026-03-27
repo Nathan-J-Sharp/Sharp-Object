@@ -11,11 +11,17 @@ function toggle_nav(){
 }
 
 const nav = document.getElementById("nav-wrapper")
-const nav_offset = nav.offsetTop;
+const logo = document.querySelector(".logo_link")
+let nav_offset = window.pageYOffset + logo.getBoundingClientRect().bottom;
 const hero = document.getElementById("hero")
 const banner = document.getElementById("banner")
 const contact_page = document.getElementById("contact_page")
 
+function updateNavOffset() {
+    nav_offset = window.pageYOffset + logo.getBoundingClientRect().bottom;
+}
+
+window.addEventListener("resize", updateNavOffset); 
 
 function toggle_sticky(){
     if (window.pageYOffset >= nav_offset){

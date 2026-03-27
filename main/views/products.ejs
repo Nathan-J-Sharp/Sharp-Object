@@ -56,8 +56,8 @@
             </div>
             <div id="page-nav">
                 <% if (page > 1) { %>
-                    <a id="arrow-left-far" href="/products?page=<%= 1 %>&k=<%= k %>"><<-</a>
-                    <a id="arrow-left" href="/products?page=<%= page - 1 %>&k=<%= k %>"><-</a>
+                    <a id="arrow-left-far" href="/products?page=<%= 1 %>&k=<%= k %>">«</a>
+                    <a id="arrow-left" href="/products?page=<%= page - 1 %>&k=<%= k %>">←</a>
                 <% } %>
                 <% if ( totalPages <= 5){ %>
                     <% for(i_page = 1; i_page <= totalPages; i_page++) { %>
@@ -104,8 +104,8 @@
                 <% } %>
 
                 <% if (page < totalPages) { %>
-                    <a id="arrow-right" href="/products?page=<%= page + 1 %>&k=<%= k %>">-></a>
-                    <a id="arrow-right-far" href="/products?page=<%= totalPages %>&k=<%= k %>">->></a>
+                    <a id="arrow-right" href="/products?page=<%= page + 1 %>&k=<%= k %>">→</a>
+                    <a id="arrow-right-far" href="/products?page=<%= totalPages %>&k=<%= k %>">»</a>
                 <% } %>
             </div>
             <div id="custom_print_sect">

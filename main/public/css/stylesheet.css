@@ -4,10 +4,11 @@
     --primary-color: #706C61;
     --secondary-color: #edae49;
     --accent1: #3fa7d6;
-    --accent2: #eeffdb;
-    --text-on-dark: #eeffdb;
+    --accent2: #dfd7b3;
+    --text-on-dark: #dfd7b3;
     --text-on-light: #706C61;
     --heading: #edae49;
+    --shadow: #000;
 }
 
 /* Home and all page styles */
@@ -55,6 +56,32 @@ body{
 #background div:nth-child(9) { left: 5%;  top: 48%; rotate: 10deg; }
 #background div:nth-child(10){ left: 45%; top: 5%;  rotate: 280deg; }
 
+@media (max-width: 800px) {
+    #background div:nth-child(1) { left: 5%;  top: 8%;  rotate: 20deg; }
+    #background div:nth-child(2) { left: 75%; top: 12%; rotate: 110deg; }
+    #background div:nth-child(3) { left: 40%; top: 20%; rotate: -50deg; }
+    #background div:nth-child(4) { left: 20%; top: 30%; rotate: 30deg; }
+    #background div:nth-child(5) { left: 85%; top: 35%; rotate: 200deg; }
+    #background div:nth-child(6) { left: 18%; top: 55%; rotate: -85deg; }
+    #background div:nth-child(7) { left: 60%; top: 60%; rotate: 65deg; }
+    #background div:nth-child(8) { left: 40%; top: 70%; rotate: 155deg; }
+    #background div:nth-child(9) { left: 8%;  top: 80%; rotate: 15deg; }
+    #background div:nth-child(10){ left: 75%; top: 82%; rotate: 285deg; }
+}
+
+@media (max-width: 375px) {
+    #background div:nth-child(1) { left: 8%;  top: 5%;  rotate: 25deg; }
+    #background div:nth-child(2) { left: 72%; top: 10%; rotate: 95deg; }
+    #background div:nth-child(3) { left: 35%; top: 18%; rotate: -45deg; }
+    #background div:nth-child(4) { left: 15%; top: 28%; rotate: 40deg; }
+    #background div:nth-child(5) { left: 80%; top: 38%; rotate: 210deg; }
+    #background div:nth-child(6) { left: 22%; top: 48%; rotate: -75deg; }
+    #background div:nth-child(7) { left: 65%; top: 58%; rotate: 75deg; }
+    #background div:nth-child(8) { left: 42%; top: 68%; rotate: 160deg; }
+    #background div:nth-child(9) { left: 12%; top: 78%; rotate: 20deg; }
+    #background div:nth-child(10){ left: 68%; top: 86%; rotate: 275deg; }
+}
+
 .triangle{
     width: 0;
     height: 0;
@@ -87,6 +114,7 @@ h4, h2{
 }
 p{
      font-family: 'Roboto Slab', serif;
+     color: var(--text-on-dark);
 }
 
 button{
@@ -159,7 +187,7 @@ header {
     width: 100%;
     background-color: var(--secondary-color);
     border: none;
-    box-shadow: 0 6px 5px var(--primary-color);
+    box-shadow: 0 6px 5px var(--shadow);
     position: relative;
     z-index: 2;
 }
@@ -183,7 +211,6 @@ nav a:hover {
 }
 
 #navbar {
-    background-color: var(--secondary-color);
     border: none;
     max-height: 0;
     overflow: hidden;
@@ -264,14 +291,14 @@ nav a:hover {
     font-size: 60px;
     font-family: 'Roboto Condensed', sans-serif;
     color: var(--heading);
-    text-shadow: 2px 2px 5px black;
+    text-shadow: 2px 2px 5px var(--shadow);
 }
 
 
 #hero_msg h2 {
     font-family: 'Roboto Slab', sans-serif;
     color: var(--accent1);
-    text-shadow: 2px 2px 5px black;
+    text-shadow: 2px 2px 5px var(--shadow);
 }
 
 #hero_msg h2{
@@ -314,11 +341,11 @@ nav a:hover {
     background-color: var(--primary-color);
 }
 #hwrapper{
-    box-shadow: 0px 0px 8px 0px black;
+    box-shadow: 0px 0px 8px 0px var(--shadow);
     margin-top: -5px;
     margin-bottom: 200px;
     padding: 50px;
-    background-color: color-mix(in srgb, var(--primary-color), transparent 50%);
+    background-color: var(--primary-color);
 }
 
 #hwrapper .products{
@@ -335,7 +362,7 @@ nav a:hover {
 }
 
 .product img{
-        box-shadow: 0px 0px 8px 8px var(--primary-color);
+        box-shadow: 0px 10px 13px var(--shadow);
         width: 50%;
         aspect-ratio: 1/1;
         object-fit: cover;
@@ -377,7 +404,7 @@ nav a:hover {
     background-color: var(--secondary-color);
     text-align: center;
     margin: 0 auto;
-    box-shadow: 0px 0px 3px 3px var(--primary-color)
+    box-shadow: 0px 0px 3px 3px var(--shadow)
 }
 .custom_print_msg h2{
     color: var(--text-on-dark);
@@ -468,7 +495,7 @@ footer p {
     grid-row: 2/3;
     font-size: 50px;
     color: var(--text-on-light);
-    text-shadow: 2px 2px 5px black;
+    text-shadow: 2px 2px 5px var(--shadow);
 
 }
 
@@ -483,11 +510,11 @@ footer p {
 }
 
 .products{
-    box-shadow: 0px 0px 8px 0px black;
+    box-shadow: 0px 0px 8px 0px var(--shadow);
     margin-top: 10px;
     margin-bottom: 20px;
     padding: 20px;
-    background-color: color-mix(in srgb, var(--primary-color), transparent 50%);
+    background-color: var(--primary-color);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr));
 }
@@ -560,11 +587,13 @@ footer p {
     transform: translateX(-100%);
     overflow: hidden;
     z-index: 2;
-    padding: 20px;
     background-color: var(--secondary-color);
     height: 100%;
     transition: 0.5s;
     z-index: 11;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #filter_bar.open {
@@ -573,17 +602,18 @@ footer p {
 }
 
 #filter_bar.open > * {
-    max-width: 90%;
+    width: 90%;
 }
 
-#filter_close{
-    margin-left: 90%;
+#filter_bar #filter_close{
     background: none;
     border: none;
     display: grid;
-    grid-template-columns: 1fr;
-    height: 20px;
+    width: max-content;
+    height: 24px;
     transform-origin: center center;
+    margin: 5px;
+    margin-left: auto;
 }
 
 #filter_close:hover{
@@ -642,6 +672,7 @@ footer p {
 .checkboxes{
     display: grid;
     grid-template-columns: 0.5fr 2fr;
+    padding: 0;
 }
 
 .checkboxes input{
@@ -783,6 +814,7 @@ form{
 
 input{
     font-family: 'Roboto Slab', serif;
+    color: var(--text-on-dark);
 }
 
 label{
@@ -861,7 +893,7 @@ label{
 }
 
 #login-wrapper{
-    box-shadow: var(--accent2) 25px 23px 11px;
+    box-shadow: var(--shadow) 25px 23px 11px;
     margin: 0 auto;
     position: relative;
     top: 33vh;
@@ -893,15 +925,15 @@ label{
 #login-button, #register-button{
     margin-left: 10px;
     font-size: 20px;
-    background-color: #edae49;
-    color: #706C61;
+    background-color: var(--secondary-color);
+    color: var(--text-on-light);
     border: none;
     padding: 10px;
 }
 
 .account-link{
     display: block;
-    color: #3FA7D6;
+    color: var(--accent1);
     margin-top: 10px;
     width: min-content;
     padding: 10px;
@@ -909,7 +941,7 @@ label{
 }
 
 #register-wrapper{
-    box-shadow: var(--accent2) 25px 23px 11px;
+    box-shadow: var(--shadow) 25px 23px 11px;
     margin: 0 auto;
     position: relative;
     top: 30vh;
@@ -1018,7 +1050,7 @@ label{
 #product-collage img{
     width: 80%;
     margin: 0 auto;
-    box-shadow: black 0px 0px 43px;
+    box-shadow: var(--shadow) 0px 0px 43px;
 }
 
 #wishlist-button{
@@ -1053,6 +1085,11 @@ label{
     width: 100%;
 }
 
+#profile-main:has(#profile-icon){
+    display: flex;
+    gap: 20px;
+}
+
 #cart-identifier{
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 0.5fr;
@@ -1071,7 +1108,7 @@ label{
     padding-left: 10px;
     align-items: center;
     justify-content: space-around;
-    border-bottom: black solid 2px;
+    border-bottom: var(--shadow) solid 2px;
 }
 
 .cart-product:last-of-type{
@@ -1095,7 +1132,7 @@ label{
     z-index: 20;
     padding: 10px;
     background-color: var(--primary-color);
-    box-shadow: 0px 0px 4px black;
+    box-shadow: 0px 0px 4px var(--shadow);
 }
 
 #order-wrapper{
@@ -1110,7 +1147,7 @@ label{
     border-radius: 20px;
     padding: 5px;
     background-color: white;
-    box-shadow: 0px 0px 5px black;
+    box-shadow: 0px 0px 5px var(--shadow);
 }
 
 .past-order > *{
@@ -1125,7 +1162,7 @@ label{
 @media (min-width: 800px) {
     .logo,
     .logo_link{
-        padding-left: 20px;
+        margin-left: 20px;
         width: 100px;
     }
     
@@ -1264,8 +1301,12 @@ label{
         display: none;
     }
 
-    #filter_close{
+    #filter_bar #filter_close{
         display: none;
+    }
+
+    #filter_bar{
+        display: block;
     }
 
     .checkboxes{
@@ -1316,4 +1357,31 @@ label{
 #main404 img{
     width: 40%;
     margin: 0 auto;
+}
+
+#profile_info{
+    margin: auto 0px;
+    background: var(--primary-color);
+    padding: 20px;
+    color: var(--text-on-dark);
+}
+
+#profile_info h3{
+    color: var(--heading);
+}
+
+#profile-header > a{
+    text-shadow: 3px 2px 3px var(--shadow);
+    color: var(--accent1);
+    font-weight: 1000;
+}
+
+#profile-header > h2{
+        color: var(--heading);
+    text-shadow: 2px 1px 3px var(--shadow);
+    text-decoration: overline;
+}
+
+#wishlist-wrapper .products:has(.product) > p{
+    display: none;
 }
