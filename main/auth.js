@@ -13,7 +13,6 @@ export async function authUser(req, res, next){
         req.user = await get_account(decoded.id);
         
     } catch (err) {
-        console.log(err)
         req.user = null;
         res.clearCookie("token")
     }

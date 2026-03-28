@@ -63,7 +63,6 @@ router.get("/profile/:section", requireAuth, async (req, res) =>{
         }
     } else if( section === 'orders'){
         data = await get_customer_order_history(user.customer_id)
-        console.log(data)
     } else if(section === 'wishlist'){
         data = []
     } else if(section != "general") {
@@ -93,10 +92,8 @@ router.post('/register', requireNoAuth, async (req, res) =>{
 
         res.redirect('/user/login')
     } catch (error) {
-        console.log(error)
         res.status(500).redirect('/user/register');
     }
-    console.log(users)
 })
 
 router.post("/login", requireNoAuth, async (req, res) =>{
@@ -133,7 +130,6 @@ router.post("/profile/photo", requireAuth,
             
             res.redirect("/user/profile/general");
         } catch(err){
-            console.log(err)
             res.status(500).send(err.message)
         }
 })
@@ -148,7 +144,6 @@ router.post("/cart/add_product", requireAuth, async (req, res) =>{
         res.redirect("/user/profile/cart")
     }
     catch (err){
-        console.log(err)
         res.status(500).send("Internal Error")
     }
 })

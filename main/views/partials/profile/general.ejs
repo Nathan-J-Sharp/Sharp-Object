@@ -3,8 +3,8 @@
 <img id="profile-icon" src="<%= user.icon_url %>" alt="icon">
 <div id="profile_info">
 <form action="/user/profile/photo" method="post" enctype="multipart/form-data">
-    <input type="file" name="profile_image" accept="image/*" required>
     <button>Update Icon</button>
+    <input type="file" name="profile_image" accept="image/*" required>
 </form>
 <h3>Full Name: <%= user.first_name%> <%= user.last_name %> </h3>
 <h3>Email: <%= user.email %></h3>
